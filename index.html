@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pear Language</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background-color: #3498db;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      padding-top: 2rem;
+    }
+
+    .sidebar button {
+      background: none;
+      border: none;
+      color: white;
+      text-align: left;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar button:hover,
+    .sidebar button.active {
+      background-color: #2980b9;
+    }
+
+    /* Content */
+    .content {
+      flex-grow: 1;
+      padding: 2rem;
+      overflow-y: auto;
+      background-color: #f9f9f9;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    h1, h2 {
+      color: #2c3e50;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 1rem;
+      overflow-x: auto;
+      border-left: 4px solid #ccc;
+    }
+
+    code {
+      background: #eee;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <button class="tablink active" onclick="openTab('home')">Pear</button>
+    <button class="tablink" onclick="openTab('about')">About</button>
+    <button class="tablink" onclick="openTab('docs')">Documentation</button>
+  </div>
+
+  <div class="content">
+    <div id="home" class="tab-content active">
+      <h1>Pear</h1>
+      <p>The Pear programming language, coded in Python. Feedback is very welcome!</p>
+    </div>
+
+    <div id="about" class="tab-content">
+      <h2>About</h2>
+      <p>Pear is a minimalistic Python-based language with extensibility through user-defined packages. It's ideal for learning and experimenting with interpreter and language design.</p>
+    </div>
+
+    <div id="docs" class="tab-content">
+        <h2>Examples</h2>
+        <p>For examples, navigate to the <code>examples</code> directory. If something like <code>io</code> is found, it should be a module that's included automatically in a release.</p>
+      
+        <h2>Packages</h2>
+        <p>Packages let you define your own commands for Pear. To create a package, make a new folder in the <code>packages</code> directory with a <code>main.py</code> file inside it. Here's the structure:</p>
+        <pre><code>packages/
+      └── yourpackage/
+        └── main.py</code></pre>
+      
+        <p>Inside <code>main.py</code>, define your functions and bind them to names using the <code>pearcom</code> dictionary:</p>
+        <pre><code>def hello(*args, tape):
+    print("Hello, World!")
+      
+pearcom = {
+    "hello": hello
+}</code></pre>
+      
+        <p>Then, in your Pear script, you can use your package like this:</p>
+        <pre><code>include packages/yourpackage
+yourpackage hello</code></pre>
+      
+        <p>This will output <code>Hello, World!</code> when the script is run.</p>
+      
+        <h2>Running Pear Scripts</h2>
+        <p>Pear scripts are plain text files with the <code>.pear</code> extension. Each line is a command, optionally using values and register indices.</p>
+      
+        <p>Example Pear script (adds 5 + 4 and stores the result in register 2):</p>
+        <pre><code>insert 5 0
+insert 4 1
+add 0 1 2</code></pre>
+      
+        <p>To run this script, open a terminal and use:</p>
+        <pre><code>python3 Pear/pear.py your_script_name.pear</code></pre>
+      
+        <p>If your script uses packages, include them using:</p>
+        <pre><code>include packages/mypackage</code></pre>
+      
+        <h2>Installation</h2>
+        <p>No official installation guide yet. For now, clone the repository and run <code>pear.py</code> directly with Python 3.</p>
+      </div>      
+  </div>
+
+  <script>
+    function openTab(tabId) {
+      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
+
+      document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
+      document.getElementById(tabId).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
